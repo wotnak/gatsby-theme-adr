@@ -10,7 +10,6 @@ module.exports = ({
     postCssPlugins: [require('tailwindcss'), require('autoprefixer')],
   },
 }) => ({
-  jsxRuntime: 'automatic',
   siteMetadata,
   trailingSlash: 'always',
   plugins: [
