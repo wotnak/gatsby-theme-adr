@@ -128,7 +128,6 @@ exports.onCreateNode = ({ node, actions, getNode }) => {
   const { createNodeField } = actions;
 
   if (node.internal.type === 'MarkdownRemark') {
-    console.log('slug', node)
     createNodeField({
       node,
       name: `slug`,
