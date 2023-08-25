@@ -4,7 +4,7 @@ import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/solid';
 
 const query = graphql`
   query Pager {
-    allMdx {
+    allMarkdownRemark {
       edges {
         next {
           fields {
@@ -39,9 +39,9 @@ type PagerProps = { uri: string };
 type SlugAndTitle = { slug: string; frontmatter: { title: string } };
 const Pager = ({ uri }: PagerProps): ReactElement => {
   const {
-    allMdx: { edges },
+    allMarkdownRemark: { edges },
   } = useStaticQuery<{
-    allMdx: {
+    allMarkdownRemark: {
       edges: {
         next: SlugAndTitle | null;
         previous: SlugAndTitle | null;

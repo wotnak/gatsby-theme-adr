@@ -3,7 +3,7 @@ const lunrOptions = {
   engine: 'lunr',
   query: `
     {
-      allMdx {
+      allMarkdownRemark {
         edges {
           node {
             id
@@ -14,21 +14,21 @@ const lunrOptions = {
             fields {
               slug
             }
-            body
+            html
           }
         }
       }
     }
   `,
-  index: ['title', 'deck', 'body'],
+  index: ['title', 'deck', 'html'],
   store: ['title', 'slug', 'deck'],
   normalizer: ({ data }) =>
-    data.allMdx.edges.map(({ node }) => ({
+    data.allMarkdownRemark.edges.map(({ node }) => ({
       id: node.id,
       title: node.frontmatter.title,
       deck: node.frontmatter.deck,
       slug: node.fields.slug,
-      body: node.body,
+      html: node.html,
     })),
 };
 

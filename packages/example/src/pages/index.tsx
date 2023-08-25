@@ -19,7 +19,7 @@ export const query = graphql`
         description
       }
     }
-    allMdx {
+    allMarkdownRemark {
       edges {
         node {
           frontmatter {
@@ -37,13 +37,13 @@ export const Head = () => <SEO />;
 const HomePage = (
   props: PropsWithChildren<
     PageProps<{
-      allMdx: { edges: AdrStatsProps['adrs'] };
+      allMarkdownRemark: { edges: AdrStatsProps['adrs'] };
       site: { siteMetadata: Partial<SiteMetadata> };
     }>
   >,
 ) => {
   const {
-    allMdx: { edges: adrs },
+    allMarkdownRemark: { edges: adrs },
     site: {
       siteMetadata: { title, description },
     },

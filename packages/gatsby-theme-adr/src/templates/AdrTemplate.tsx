@@ -28,11 +28,13 @@ type ContextType = {
   nextAdrId: string;
   previousAdrId: string;
 };
-type DataType = { mdx: { frontmatter: AdrFrontmatter; body: string } };
+type DataType = {
+  markdownRemark: { frontmatter: AdrFrontmatter; html: string };
+};
 
 export const Head = ({
   data: {
-    mdx: {
+    markdownRemark: {
       frontmatter: { title, deck },
     },
   },
@@ -44,13 +46,13 @@ const AdrTemplate = (props: PageProps<DataType, ContextType>): ReactElement => {
   const { uri, data } = props;
   const {
     frontmatter: { date, deciders, status, tags, title, deck },
-    body,
-  } = data.mdx;
+    html,
+  } = data.markdownRemark;
   const { id } = props.pageContext;
 
   useEffect(() => {
     highlightCode();
-  }, [body]);
+  }, [html]);
   return (
     <Layout {...props}>
       <PageBreadcrumbs uri={uri} title={title} />
@@ -76,9 +78,10 @@ const AdrTemplate = (props: PageProps<DataType, ContextType>): ReactElement => {
                 <AdrToc id={id} />
               </div>
             </div>
-            <div className="mt-8 lg:mt-0 prose lg:prose-xl prose-a:text-blue-600 prose-headings:font-sans prose-code:before:content-none prose-code:after:content-none">
-              {props.children}
-            </div>
+            <div
+              className="mt-8 lg:mt-0 prose lg:prose-xl prose-a:text-blue-600 prose-headings:font-sans prose-code:before:content-none prose-code:after:content-none"
+              dangerouslySetInnerHTML={{ __html: html }}
+            ></div>
           </div>
           <Pager uri={uri} />
         </section>
@@ -123,7 +126,7 @@ const AdrTemplate = (props: PageProps<DataType, ContextType>): ReactElement => {
 
 export const query = graphql`
   query AdrPage($id: String!) {
-    mdx(id: { eq: $id }) {
+    markdownRemark(id: { eq: $id }) {
       frontmatter {
         date(locale: "en-US", formatString: "dddd, MMMM Do YYYY")
         deciders
@@ -132,7 +135,7 @@ export const query = graphql`
         title
         deck
       }
-      body
+      html
     }
   }
 `;

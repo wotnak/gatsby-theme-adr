@@ -5,7 +5,7 @@ import TagList from './TagList';
 
 const query = graphql`
   query LatestAdrs {
-    allMdx(
+    allMarkdownRemark(
       sort: [{ frontmatter: { date: DESC } }, { frontmatter: { title: ASC } }]
       limit: 8
     ) {
@@ -41,9 +41,9 @@ type AdrsTimelineProps = {
 };
 export default function AdrsTimeline({ uri }: AdrsTimelineProps) {
   const {
-    allMdx: { edges: allAdrs },
+    allMarkdownRemark: { edges: allAdrs },
   } = useStaticQuery<{
-    allMdx: {
+    allMarkdownRemark: {
       edges: AdrTimelineData[];
     };
   }>(query);

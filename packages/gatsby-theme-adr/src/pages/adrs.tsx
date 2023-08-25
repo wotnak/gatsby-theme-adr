@@ -30,7 +30,7 @@ export type AdrListingData = {
 type AdrListingType = PropsWithChildren<
   PageProps<
     {
-      allMdx: {
+      allMarkdownRemark: {
         edges: AdrListingData[];
       };
     },
@@ -40,7 +40,7 @@ type AdrListingType = PropsWithChildren<
 const AdrListing = (props: AdrListingType) => {
   const {
     data: {
-      allMdx: { edges: allAdrs },
+      allMarkdownRemark: { edges: allAdrs },
     },
     pageContext: { tag },
   } = props;
@@ -133,7 +133,7 @@ const AdrListing = (props: AdrListingType) => {
 
 export const query = graphql`
   query AllAdrs($tag: String) {
-    allMdx(
+    allMarkdownRemark(
       sort: { frontmatter: { date: DESC } }
       filter: { frontmatter: { tags: { eq: $tag } } }
     ) {

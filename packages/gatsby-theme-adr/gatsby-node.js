@@ -14,7 +14,7 @@ const createTagFilteredListings = async (createPage, graphql, reporter) => {
   const result = await graphql(
     `
       {
-        allMdx {
+        allMarkdownRemark {
           edges {
             node {
               frontmatter {
@@ -35,7 +35,7 @@ const createTagFilteredListings = async (createPage, graphql, reporter) => {
 
   // Create pages for each markdown file.
   const adrsTemplate = require.resolve('./src/pages/adrs.tsx');
-  const allTags = result.data.allMdx.edges.reduce(
+  const allTags = result.data.allMarkdownRemark.edges.reduce(
     (tags, edge) =>
       (edge.node.frontmatter.tags || []).reduce((carry, tag) => {
         carry.add(tag);
@@ -56,7 +56,7 @@ const createAdrDetail = async (createPage, graphql, reporter) => {
   // Get all markdown blog posts sorted by date
   const result = await graphql(`
     {
-      allMdx(sort: { frontmatter: { date: ASC } }) {
+      allMarkdownRemark(sort: { frontmatter: { date: ASC } }) {
         edges {
           node {
             id
@@ -80,7 +80,7 @@ const createAdrDetail = async (createPage, graphql, reporter) => {
     return;
   }
 
-  const adrs = result.data.allMdx.edges;
+  const adrs = result.data.allMarkdownRemark.edges;
 
   // Create adr pages
   // But only if there's at least one markdown file found at "content/adr" (defined in gatsby-config.js)
@@ -127,10 +127,11 @@ exports.onPreBootstrap = ({ reporter }, { contentPath }) => {
 exports.onCreateNode = ({ node, actions, getNode }) => {
   const { createNodeField } = actions;
 
-  if (node.internal.type === 'Mdx') {
+  if (node.internal.type === 'MarkdownRemark') {
+    console.log('slug', node)
     createNodeField({
       node,
-      name: 'slug',
+      name: `slug`,
       value: `/adr/${createFilePath({ node, getNode }).replace(/^\//, '')}`,
     });
   }

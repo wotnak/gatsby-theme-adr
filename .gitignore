@@ -3,3 +3,12 @@ node_modules/
 /packages/*/public/
 yarn-error.log
 /dist
+
+# Ignore yarn specific files
+.yarn/*
+!.yarn/patches
+!.yarn/releases
+!.yarn/plugins
+!.yarn/sdks
+!.yarn/versions
+.pnp.*

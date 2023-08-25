@@ -12,8 +12,8 @@ module.exports = {
   `,
   feeds: [
     {
-      serialize: ({ query: { site, allMdx } }) => {
-        return allMdx.edges.map((edge) => {
+      serialize: ({ query: { site, allMarkdownRemark } }) => {
+        return allMarkdownRemark.edges.map((edge) => {
           const siteUrl = site.siteMetadata.siteUrl;
           return {
             title: edge.node.frontmatter.title,
@@ -33,7 +33,7 @@ module.exports = {
       },
       query: `
         {
-          allMdx(sort: {frontmatter: {date: DESC}}) {
+          allMarkdownRemark(sort: {frontmatter: {date: DESC}}) {
             edges {
               node {
                 frontmatter {

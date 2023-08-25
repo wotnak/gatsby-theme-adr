@@ -10,8 +10,6 @@ deciders:
   - Julia Oceanchild
 title: Record architecture decisions
 deck: We need to record the architectural decisions made on this project.
-redirect_from:
-  - /adr/record-architecture-desicions
 ---
 ## Decision
 

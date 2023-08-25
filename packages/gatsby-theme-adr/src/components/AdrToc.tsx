@@ -41,19 +41,19 @@ function TocLink({
 type LinkParts = { url: string; title: string; items?: LinkParts[] };
 export default function AdrToc({ id }: AdrToc) {
   const {
-    allMdx: { edges },
+    allMarkdownRemark: { edges },
   } = useStaticQuery<{
-    allMdx: {
+    allMarkdownRemark: {
       edges: {
         node: {
           id: string;
-          tableOfContents: { items: LinkParts[] };
+          tableOfContents: string;
         };
       }[];
     };
   }>(graphql`
     query AdrToc {
-      allMdx {
+      allMarkdownRemark {
         edges {
           node {
             id
@@ -76,21 +76,11 @@ export default function AdrToc({ id }: AdrToc) {
       >
         Table Of Contents
       </h2>
-      <nav className="space-y-1 border-l border-gray-200" aria-label="Sidebar">
-        <ul>
-          {edge.node.tableOfContents.items.map(
-            ({ title, url, items }, index) => (
-              <TocLink
-                key={index}
-                url={url}
-                title={title}
-                items={items}
-                depth={1}
-              />
-            ),
-          )}
-        </ul>
-      </nav>
+      <nav
+        className="space-y-1 border-l border-gray-200"
+        aria-label="Sidebar"
+        dangerouslySetInnerHTML={{ __html: edge.node.tableOfContents }}
+      ></nav>
     </div>
   );
 }

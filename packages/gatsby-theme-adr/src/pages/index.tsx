@@ -15,9 +15,9 @@ const HomePage = (props: PropsWithChildren<PageProps>) => {
     site: {
       siteMetadata: { title, description },
     },
-    allMdx: { edges: adrs },
+    allMarkdownRemark: { edges: adrs },
   } = useStaticQuery<{
-    allMdx: { edges: AdrStatsProps['adrs'] };
+    allMarkdownRemark: { edges: AdrStatsProps['adrs'] };
     site: { siteMetadata: Partial<SiteMetadata> };
   }>(graphql`
     query {
@@ -27,7 +27,7 @@ const HomePage = (props: PropsWithChildren<PageProps>) => {
           description
         }
       }
-      allMdx {
+      allMarkdownRemark {
         edges {
           node {
             frontmatter {
