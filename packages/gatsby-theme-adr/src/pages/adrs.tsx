@@ -7,6 +7,7 @@ import StatusBadge from '../components/StatusBadge';
 import ReactMarkdown from 'react-markdown';
 import PageTitle from '../components/PageTitle';
 import SEO from '../components/SEO';
+import TagLink from '../components/TagLink';
 
 type HeadDataProps = HeadProps<object, { tag: string | undefined }>;
 export const Head = ({ pageContext: { tag } }: HeadDataProps) => (
@@ -102,7 +103,12 @@ const AdrListing = (props: AdrListingType) => {
                             className="flex-shrink-0 mr-1.5 h-5 w-5 text-gray-400"
                             aria-hidden="true"
                           />
-                          {tags.join(', ')}
+                          {tags.map((tag, i) => (
+                            <>
+                              {!i || <span>,&nbsp;</span>}
+                              <TagLink tag={tag} key={i} />
+                            </>
+                          ))}
                         </p>
                       ) : (
                         <></>
