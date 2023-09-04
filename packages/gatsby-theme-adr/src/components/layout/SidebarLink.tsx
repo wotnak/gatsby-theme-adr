@@ -42,7 +42,7 @@ export default function SidebarLink({
         ].join(' ')}
         aria-current={current ? 'page' : undefined}
       />
-      <span className="mt-2">{name}</span>
+      <span className="mt-2 text-center">{name}</span>
     </Link>
   );
 }
